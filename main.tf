@@ -42,7 +42,7 @@ resource "aws_iam_role" "iam_for_lambda" {
 resource "aws_lambda_function" "stop_ec2_instance" {
   function_name = "stop_instance"
 
-  role = ""
+  role = resource.aws_iam_role.iam_for_lambda
 
   description = "Lambda function to start an EC2 instance"
 }

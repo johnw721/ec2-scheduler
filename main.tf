@@ -19,6 +19,23 @@ data "aws_lambda_function" "start_ec2_instance" {
 
 # Attach necessary role(s) to Lambda Function
 
+data "aws_iam_policy_document" "assume_role"{
+
+  statement {
+    effect = "Allow"
+    actions = ["sts:AssumeRole"]
+
+    principals {
+      type        = "Service"
+      identifiers = ["lambda.amazonaws.com"]
+    }
+  }
+}
+
+resource "aws_iam_role" "iam_for_lambda" {
+  name="lambda_iam"
+  assume_role_policy = data.aws_iam_policy_document.assume_role.json
+}
 
 # Lambda Function to Stop EC2 in K8 Cluster
 

@@ -1,18 +1,9 @@
-resource "aws_vpc" "main" {
-    cidr_block = "10.0.0.0/16"
-
-
-tags = {
-  Name = "Automation Scheduling Project"
-}
-}
-
 # Lambda Function to Start EC2 instance in K8 Cluster
 
 data "aws_lambda_function" "start_ec2_instance" {
-  function_name = ""
+  function_name = "start_Instance"
 
-  role = ""
+  role = resource.aws_iam_role.iam_for_lambda
 
   description = "Lambda function to start an EC2 instance"
 }
